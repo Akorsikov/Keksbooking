@@ -62,7 +62,13 @@ const types = [
   'flat',
   'house',
   'bungalow',
-]
+];
+
+const checks = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
 
 const advertisement = {
   // author, объект — описывает автора. Содержит одно поле:
