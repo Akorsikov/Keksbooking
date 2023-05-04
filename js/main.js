@@ -57,6 +57,13 @@ const titles = [
   'Сдаётся жильё',
 ];
 
+const types = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+]
+
 const advertisement = {
   // author, объект — описывает автора. Содержит одно поле:
   author : {
