@@ -46,6 +46,16 @@ const getRandomFloatInRange = (range1, range2, depthAfterDot ) => {
 }
 
 //write functions to create an array of 10 generated objects
+const titles = [
+  'Сдам в аренду',
+  'Сдаётся',
+  'Выгодная аренда',
+  'Жильё в аренду',
+  'Сдам жильё',
+  'Нуждаешься в жилье?',
+  'Сдаётся в аренду',
+  'Сдаётся жильё',
+];
 
 const advertisement = {
   // author, объект — описывает автора. Содержит одно поле:
