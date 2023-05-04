@@ -45,3 +45,30 @@ const getRandomFloatInRange = (range1, range2, depthAfterDot ) => {
   return Math.round(randomNumber * tenToDegree) / tenToDegree;
 }
 
+//write functions to create an array of 10 generated objects
+
+const advertisement = {
+  // author, объект — описывает автора. Содержит одно поле:
+  author : {
+    avatar: '', // avatar, строка — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это число от 1 до 10 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются.
+  },
+  // offer, объект — содержит информацию об объявлении. Состоит из полей:
+  offer : {
+    title: '',    // title, строка — заголовок предложения. Придумайте самостоятельно.
+    address: '',  // address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.x}}, {{location.y}}.
+    price: null,  // price, число — стоимость. Случайное целое положительное число.
+    type: '',     // type, строка — одно из четырёх фиксированных значений: palace, flat, house или bungalow.
+    room: null,   // rooms, число — количество комнат. Случайное целое положительное число.
+    guests: null, // guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
+    checkin: '',  // checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+    checkout: '', // checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+    features: [], // features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
+    description: '', // description, строка — описание помещения. Придумайте самостоятельно.
+    photos: [],   // photos, массив строк — массив случайной длины из значений: http://o0.github.io/assets/images/tokyo/hotel1.jpg, http://o0.github.io/assets/images/tokyo/hotel2.jpg, http://o0.github.io/assets/images/tokyo/hotel3.jpg.
+    // location, объект — местоположение в виде географических координат. Состоит из двух полей:
+    location: {
+      x: null,    // x, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000
+      y: null,    // y, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000
+    },
+  },
+}
