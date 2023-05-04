@@ -70,6 +70,15 @@ const checks = [
   '14:00',
 ];
 
+const features = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
+];
+
 const advertisement = {
   // author, объект — описывает автора. Содержит одно поле:
   author : {
