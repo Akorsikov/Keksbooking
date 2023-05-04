@@ -90,7 +90,15 @@ const descriptions = [
   'Удобный подъезд к жилью',
   'Ресторан и библиотека за углом',
   'Окраина города, много зелени',
-]
+];
+
+const photos = [
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
+];
+
+
 
 const advertisement = {
   // author, объект — описывает автора. Содержит одно поле:
