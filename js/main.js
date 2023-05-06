@@ -110,10 +110,10 @@ const getRandomFloatInRange = (range1, range2, depthAfterDot ) => {
   const randomNumber = (Math.random() * (range2 - range1) + range1);
   return Math.round(randomNumber * tenToDegree) / tenToDegree;
 }
-
-//write functions to create an array of 10 generated objects
 /**
- *
+ *Функция возвращает случайным образом сгенерированный массив не повторяющихся опций(фич
+  с использованием заданного массива "features") случайной длины (в пределах длины "features").
+  @return {array} arrayFeatures - массив опций для объявления о сдаче жилья.
  */
 const getRandomArrayFeatures = () => {
   const quantityFeatures = getRandomIntegerInRange(1, features.length);
@@ -129,7 +129,10 @@ const getRandomArrayFeatures = () => {
   return arrayFeatures;
 }
 /**
- *
+ *Функция возвращает случайным образом сгенерированный массив адресов фотографий
+ (с использованием заданного массива "photos") случайной длины (в пределах константы
+  "MAX_PHOTOS").
+  @return {array} arrayPhotos - массив адресов фотографий для объявления о сдаче жилья.
  */
 const getRandomArrayPhotos = () => {
   const quantityPhotos = getRandomIntegerInRange(1, MAX_PHOTOS);
@@ -137,13 +140,12 @@ const getRandomArrayPhotos = () => {
   for (let i = 0; i < quantityPhotos; i++) {
     arrayPhotos.push(photos[getRandomIntegerInRange(1, photos.length - 1)]);
   }
-
   return arrayPhotos;
 }
 /**
  *Функция возвращает случайным образом сгенерированный массив объявлений в виде объектов
  со свойствами, также случайным образом сгенерированными(с использованием массивов значений
- или без таковый).
+ или без таковых).
  @param {number} quantity - количество генерируемых объявлений (элементов массива);
  @return {array} arrayAds - массив сгенерированных объявлений.
  Описание структуры объекта(объявления):
@@ -175,7 +177,7 @@ const getRandomArrayPhotos = () => {
 const getArrayRandomAds = (quantity) => {
   let arrayAds = [];
   for (let i = 0; i < quantity; i++) {
-    const numberPhoto = String(getRandomIntegerInRange(1, 10)).padStart(2, '0');
+    const numberPhoto = String(i + 1).padStart(2, '0');
     const latitude = getRandomFloatInRange(LATITUDE.MIN, LATITUDE.MAX, GEO_PRECISION);
     const longitude = getRandomFloatInRange(LONGITUDE.MIN, LONGITUDE.MAX, GEO_PRECISION);
     const advertisement = {
