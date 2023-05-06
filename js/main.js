@@ -1,4 +1,3 @@
-// start of the project
 /**
  * Функция, возвращающая случайное целое число из переданного диапазона включительно
  * (диапазон может быть только положительный, включая ноль).
@@ -19,8 +18,6 @@ const getRandomIntegerInRange = (range1, range2) => {
   }
   return Math.floor(Math.random() * (range2 - range1 + 1)) + range1;
 }
-
-// start of the project
 /**
  * Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
  * (диапазон может быть только положительный, включая ноль) с указанным "количеством знаков после запятой".
@@ -46,6 +43,54 @@ const getRandomFloatInRange = (range1, range2, depthAfterDot ) => {
 }
 
 //write functions to create an array of 10 generated objects
+/**
+ *
+ */
+const getRandomArrayFeatures = () => {
+  const quantityFeatures = getRandomIntegerInRange(1, features.length);
+  if (quantityFeatures === features.length) {
+    return features;
+  }
+  let arrayFeatures = features.slice();
+  for (let i = quantityFeatures; i < features.length; i++) {
+    let feature = arrayFeatures[getRandomIntegerInRange(1, arrayFeatures.length - 1)];
+    let indexItem = arrayFeatures.indexOf(feature);
+    arrayFeatures.splice(indexItem, 1);
+  }
+  return arrayFeatures;
+}
+/**
+ *
+ */
+const getRandomArrayPhotos = () => {
+  const quantityPhotos = getRandomIntegerInRange(1, MAX_PHOTOS);
+  let arrayPhotos = [];
+  for (let i = 0; i < quantityPhotos; i++) {
+    arrayPhotos.push(photos[getRandomIntegerInRange(1, photos.length - 1)]);
+  }
+
+  return arrayPhotos;
+}
+
+const LATITUDE = {
+  MIN: 35.65000,
+  MAX: 35.70000,
+}
+const LONGITUDE = {
+  MIN: 139.70000,
+  MAX: 139.80000,
+}
+const GEO_PRECISION = 5;
+const PRICE = {
+  MIN: 10000,   //    10 000;
+  MAX: 1000000, // 1 000 000;
+}
+const ROOM = {
+  MIN: 1,
+  MAX: 7,
+}
+const MAX_GUESTS = 8;
+const MAX_PHOTOS = 6;
 const titles = [
   'Сдам в аренду',
   'Сдаётся',
@@ -56,20 +101,17 @@ const titles = [
   'Сдаётся в аренду',
   'Сдаётся жильё',
 ];
-
 const types = [
   'palace',
   'flat',
   'house',
   'bungalow',
 ];
-
 const checks = [
   '12:00',
   '13:00',
   '14:00',
 ];
-
 const features = [
   'wifi',
   'dishwasher',
@@ -78,7 +120,6 @@ const features = [
   'elevator',
   'conditioner',
 ];
-
 const descriptions = [
   'Жильё в центре города',
   'Рядом замечательный парк',
@@ -91,37 +132,44 @@ const descriptions = [
   'Ресторан и библиотека за углом',
   'Окраина города, много зелени',
 ];
-
 const photos = [
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
+const numberPhoto = String(getRandomIntegerInRange(1, 10)).padStart(2, '0');
+const latitude = getRandomFloatInRange(LATITUDE.MIN, LATITUDE.MAX, GEO_PRECISION);
+const longitude = getRandomFloatInRange(LONGITUDE.MIN, LONGITUDE.MAX, GEO_PRECISION);
 
-
+console.log(numberPhoto);
 const advertisement = {
   // author, объект — описывает автора. Содержит одно поле:
   author : {
-    avatar: '', // avatar, строка — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это число от 1 до 10 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются.
+    avatar: `img/avatars/user${numberPhoto}.png`, // avatar, строка — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это число от 1 до 10 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются.
   },
   // offer, объект — содержит информацию об объявлении. Состоит из полей:
-  offer : {
-    title: '',    // title, строка — заголовок предложения. Придумайте самостоятельно.
-    address: '',  // address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.x}}, {{location.y}}.
-    price: null,  // price, число — стоимость. Случайное целое положительное число.
-    type: '',     // type, строка — одно из четырёх фиксированных значений: palace, flat, house или bungalow.
-    room: null,   // rooms, число — количество комнат. Случайное целое положительное число.
-    guests: null, // guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
-    checkin: '',  // checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-    checkout: '', // checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-    features: [], // features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
-    description: '', // description, строка — описание помещения. Придумайте самостоятельно.
-    photos: [],   // photos, массив строк — массив случайной длины из значений: http://o0.github.io/assets/images/tokyo/hotel1.jpg, http://o0.github.io/assets/images/tokyo/hotel2.jpg, http://o0.github.io/assets/images/tokyo/hotel3.jpg.
+  offer: {
+    title: titles[getRandomIntegerInRange(1, titles.length - 1)],    // title, строка — заголовок предложения. Придумайте самостоятельно.
+    address: `${latitude}, ${longitude}`,  // address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.x}}, {{location.y}}.
+    price: getRandomIntegerInRange(PRICE.MIN, PRICE.MAX),  // price, число — стоимость. Случайное целое положительное число.
+    type: types[getRandomIntegerInRange(1, types.length - 1)],     // type, строка — одно из четырёх фиксированных значений: palace, flat, house или bungalow.
+    room: getRandomIntegerInRange(ROOM.MIN, ROOM.MAX),   // rooms, число — количество комнат. Случайное целое положительное число.
+    guests: getRandomIntegerInRange(1, MAX_GUESTS), // guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
+    checkin: checks[getRandomIntegerInRange(1, checks.length - 1)],  // checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+    checkout: checks[getRandomIntegerInRange(1, checks.length - 1)], // checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+    features: getRandomArrayFeatures(), // features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
+    description: descriptions[getRandomIntegerInRange(1, descriptions.length - 1)], // description, строка — описание помещения. Придумайте самостоятельно.
+    photos: getRandomArrayPhotos(),   // photos, массив строк — массив случайной длины из значений: http://o0.github.io/assets/images/tokyo/hotel1.jpg, http://o0.github.io/assets/images/tokyo/hotel2.jpg, http://o0.github.io/assets/images/tokyo/hotel3.jpg.
     // location, объект — местоположение в виде географических координат. Состоит из двух полей:
     location: {
-      x: null,    // x, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000
-      y: null,    // y, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000
+      x: latitude,    // x, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000
+      y: longitude,    // y, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000
     },
   },
 }
+console.log(advertisement.author);
+console.log(advertisement.offer);
