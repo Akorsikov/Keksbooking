@@ -11,8 +11,8 @@ const LONGITUDE = {
 }
 const GEO_PRECISION = 5;
 const PRICE = {
-  MIN: 10000,   //    10 000;
-  MAX: 1000000, // 1 000 000;
+  MIN: 5000,   //    10 000;
+  MAX: 100000, // 1 000 000;
 }
 const ROOM = {
   MIN: 1,
@@ -30,11 +30,17 @@ const titles = [
   'Сдаётся в аренду',
   'Сдаётся жильё',
 ];
+// const types = [
+//   'palace',
+//   'flat',
+//   'house',
+//   'bungalow',
+// ];
 const types = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
+  'Аппартаменты',
+  'Квартира',
+  'Дом',
+  'Бунгало',
 ];
 const checks = [
   '12:00',
