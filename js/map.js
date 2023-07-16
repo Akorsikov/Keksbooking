@@ -1,5 +1,11 @@
+const TOKYO_CENTER = {
+  lat: 35.68950,
+  lng: 139.69171,
+}
+
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
+const adFormAddress = document.querySelector('#address');
 
 adForm.classList.add('ad-form--disabled');
 for (let item of adFormFieldsets) {
@@ -15,10 +21,7 @@ const map = L.map('map-canvas')
       item.removeAttribute('disabled');
     }
   })
-  .setView({
-    lat: 35.68950,
-    lng: 139.69171,
-  }, 10);
+  .setView(TOKYO_CENTER, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -34,10 +37,7 @@ const mainPin = L.icon({
 });
 
 const marker = L.marker(
-  {
-    lat: 35.68950,
-    lng: 139.69171,
-  },
+  TOKYO_CENTER,
   {
     draggable: true,
     icon: mainPin,
@@ -45,3 +45,11 @@ const marker = L.marker(
 );
 
 marker.addTo(map);
+adFormAddress.value = `Lat: ${marker.getLatLng().lat}, Lng: ${marker.getLatLng().lng}`;
+
+marker.on('moveend', evt => {
+  // adFormAddress.value = evt.target.getLatLng();
+  const latitude = evt.target.getLatLng().lat.toFixed(5);
+  const longitude = evt.target.getLatLng().lng.toFixed(5);
+  adFormAddress.value = `Lat: ${latitude}, Lng: ${longitude}`;
+});
