@@ -1,11 +1,16 @@
+import {getArrayRandomAds} from './data.js';
+import {getAdCard} from './ad-card.js';
+
 const TOKYO_CENTER = {
   lat: 35.68950,
   lng: 139.69171,
 }
+const ZOOM = 10;
 
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
+const currentAds = getArrayRandomAds();
 
 adForm.classList.add('ad-form--disabled');
 for (let item of adFormFieldsets) {
@@ -21,7 +26,7 @@ const map = L.map('map-canvas')
       item.removeAttribute('disabled');
     }
   })
-  .setView(TOKYO_CENTER, 10);
+  .setView(TOKYO_CENTER, ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -32,9 +37,15 @@ L.tileLayer(
 
 const mainPin = L.icon({
   iconUrl: './leaflet/img/main-pin.svg',
-  iconSize: [48, 48],
-  iconAnchor: [24, 48],
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
 });
+
+const currentPin = L.icon({
+  iconUrl: './leaflet/img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+})
 
 const marker = L.marker(
   TOKYO_CENTER,
@@ -52,4 +63,18 @@ marker.on('moveend', evt => {
   const latitude = evt.target.getLatLng().lat.toFixed(5);
   const longitude = evt.target.getLatLng().lng.toFixed(5);
   adFormAddress.value = `Lat: ${latitude}, Lng: ${longitude}`;
+});
+
+currentAds.forEach((advertisement) => {
+  const lat = advertisement.offer.location.x;
+  const lng = advertisement.offer.location.y;
+  const marker = L.marker({
+    lat,
+    lng,
+  },
+  {
+    icon: currentPin,
+  })
+
+  marker.addTo(map);
 });
