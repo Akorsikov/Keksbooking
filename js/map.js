@@ -5,12 +5,13 @@ const TOKYO_CENTER = {
   lat: 35.68950,
   lng: 139.69171,
 }
-const ZOOM = 10;
+const ZOOM = 12;
 
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
 const currentAds = getArrayRandomAds();
+//console.log(currentAds);
 
 adForm.classList.add('ad-form--disabled');
 for (let item of adFormFieldsets) {
@@ -68,13 +69,17 @@ marker.on('moveend', evt => {
 currentAds.forEach((advertisement) => {
   const lat = advertisement.offer.location.x;
   const lng = advertisement.offer.location.y;
-  const marker = L.marker({
-    lat,
-    lng,
-  },
-  {
-    icon: currentPin,
-  })
-
-  marker.addTo(map);
+  const popupBalloon = getAdCard(advertisement);
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon: currentPin,
+    },
+  );
+  marker
+    .addTo(map)
+    .bindPopup(popupBalloon);
 });
