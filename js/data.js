@@ -148,7 +148,7 @@ const getArrayRandomAds = () => {
     const longitude = getRandomFloatInRange(LONGITUDE.MIN, LONGITUDE.MAX, GEO_PRECISION);
     const advertisement = {
       author : {
-        avatar: `img/avatars/user${numberPhoto}.png`,
+        avatar: `./img/avatars/user${numberPhoto}.png`,
       },
       offer: {
         title: titles[getRandomIntegerInRange(1, titles.length - 1)],
