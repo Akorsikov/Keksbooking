@@ -1,17 +1,18 @@
 const templateAdCard = document.querySelector('#card').content;
-const adCard = templateAdCard.querySelector('.popup').cloneNode(true);
-const adCardAvatar = adCard.querySelector('.popup__avatar');
-const adCardTitle = adCard.querySelector('.popup__title');
-const adCardAddress = adCard.querySelector('.popup__text--address');
-const adCardPrice = adCard.querySelector('.popup__text--price');
-const adCardType = adCard.querySelector('.popup__type');
-const adCardCapacity = adCard.querySelector('.popup__text--capacity');
-const adCardTime = adCard.querySelector('.popup__text--time');
-const adCardFeatures = adCard.querySelector('.popup__features');
-const adCardDescription = adCard.querySelector('.popup__description');
-const adCardPhotos = adCard.querySelector('.popup__photos');
 
 const getAdCard = (adData) => {
+
+  const adCard = templateAdCard.querySelector('.popup').cloneNode(true);
+  const adCardAvatar = adCard.querySelector('.popup__avatar');
+  const adCardTitle = adCard.querySelector('.popup__title');
+  const adCardAddress = adCard.querySelector('.popup__text--address');
+  const adCardPrice = adCard.querySelector('.popup__text--price');
+  const adCardType = adCard.querySelector('.popup__type');
+  const adCardCapacity = adCard.querySelector('.popup__text--capacity');
+  const adCardTime = adCard.querySelector('.popup__text--time');
+  const adCardFeatures = adCard.querySelector('.popup__features');
+  const adCardDescription = adCard.querySelector('.popup__description');
+  const adCardPhotos = adCard.querySelector('.popup__photos');
 
   adCardAvatar.setAttribute('src', adData.author.avatar);
   adCardTitle.textContent = adData.offer.title;
@@ -41,6 +42,7 @@ const getAdCard = (adData) => {
 
   //features
   const features = adData.offer.features;
+  //console.log(adCardFeatures);
   for (let i = 0; i < features.length; i++) {
     adCardFeatures.append(getCardFeature(features[i]));
   }
