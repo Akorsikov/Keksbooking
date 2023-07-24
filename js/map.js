@@ -81,5 +81,10 @@ currentAds.forEach((advertisement) => {
   );
   marker
     .addTo(map)
-    .bindPopup(popupBalloon);
+    .bindPopup(
+      popupBalloon,
+      {
+        keepInView: true,
+      },
+    );
 });
