@@ -11,7 +11,6 @@ const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
 const currentAds = getArrayRandomAds();
-//console.log(currentAds);
 
 adForm.classList.add('ad-form--disabled');
 for (let item of adFormFieldsets) {
@@ -60,7 +59,6 @@ marker.addTo(map);
 adFormAddress.value = `Lat: ${marker.getLatLng().lat}, Lng: ${marker.getLatLng().lng}`;
 
 marker.on('moveend', evt => {
-  // adFormAddress.value = evt.target.getLatLng();
   const latitude = evt.target.getLatLng().lat.toFixed(5);
   const longitude = evt.target.getLatLng().lng.toFixed(5);
   adFormAddress.value = `Lat: ${latitude}, Lng: ${longitude}`;
