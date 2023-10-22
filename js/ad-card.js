@@ -43,16 +43,19 @@ const getAdCard = (adData) => {
   //features
   const features = adData.offer.features;
   //console.log(adCardFeatures);
-  for (let i = 0; i < features.length; i++) {
-    adCardFeatures.append(getCardFeature(features[i]));
+  if (features) {
+    for (let i = 0; i < features.length; i++) {
+      adCardFeatures.append(getCardFeature(features[i]));
+    }
   }
 
   //photos
   const srcPhotos = adData.offer.photos;
-  for (let i = 0; i < srcPhotos.length; i++) {
-    adCardPhotos.append(getCardPhoto(srcPhotos[i]));
-  }
-
+  if (srcPhotos) {
+    for (let i = 0; i < srcPhotos.length; i++) {
+      adCardPhotos.append(getCardPhoto(srcPhotos[i]));
+    }
+  }g
   return adCard;
 }
 
