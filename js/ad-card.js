@@ -55,7 +55,7 @@ const getAdCard = (adData) => {
     for (let i = 0; i < srcPhotos.length; i++) {
       adCardPhotos.append(getCardPhoto(srcPhotos[i]));
     }
-  }g
+  }
   return adCard;
 }
 

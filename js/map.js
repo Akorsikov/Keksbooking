@@ -1,4 +1,4 @@
-import {getArrayRandomAds} from './data.js';
+//import {getArrayRandomAds} from './data.js';
 import {getAdCard} from './ad-card.js';
 
 const TOKYO_CENTER = {
@@ -10,7 +10,8 @@ const ZOOM = 12;
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
-const currentAds = getArrayRandomAds();
+// const currentAds = getArrayRandomAds();
+
 
 adForm.classList.add('ad-form--disabled');
 for (let item of adFormFieldsets) {
@@ -64,25 +65,31 @@ marker.on('moveend', evt => {
   adFormAddress.value = `Lat: ${latitude}, Lng: ${longitude}`;
 });
 
-currentAds.forEach((advertisement) => {
-  const lat = advertisement.offer.location.x;
-  const lng = advertisement.offer.location.y;
-  const popupBalloon = getAdCard(advertisement);
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon: currentPin,
-    },
-  );
-  marker
-    .addTo(map)
-    .bindPopup(
-      popupBalloon,
+const getMarkersAds = (arrayAds) => {
+  arrayAds.forEach((advertisement) => {
+    console.log(advertisement);
+    const lat = advertisement.location.lat;
+    const lng = advertisement.location.lng;
+    console.log(' lat: ', lat, ' lng: ', lng);
+    const popupBalloon = getAdCard(advertisement);
+    const marker = L.marker(
       {
-        keepInView: true,
+        lat,
+        lng,
+      },
+      {
+        icon: currentPin,
       },
     );
-});
+    marker
+      .addTo(map)
+      .bindPopup(
+        popupBalloon,
+        {
+          keepInView: true,
+        },
+      );
+  })
+}
+
+export {getMarkersAds};
