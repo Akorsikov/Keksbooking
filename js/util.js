@@ -55,4 +55,19 @@ const getFixLengthDigitsAfterPoint = (numberFloat,  lengthDigitsAfterPoint) => {
   }
   return stringNumberFloat;
 }
-export {getRandomIntegerInRange, getRandomFloatInRange, getFixLengthDigitsAfterPoint}
+
+/**
+ * Функция для проверки статуса выполнения запроса "fetch". Если код ответа в диапазоне чисел 200-299
+ * @param {*} response
+ * @returns Если код ответа в диапазоне чисел 200-299 вернется "response" иначе "error"
+ */
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+
+  const {statusText, status} = response;
+  throw new Error(`${status} — ${statusText}`);
+}
+
+export {  getRandomIntegerInRange,  getRandomFloatInRange,  getFixLengthDigitsAfterPoint,  checkStatus}
