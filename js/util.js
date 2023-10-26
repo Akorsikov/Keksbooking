@@ -41,4 +41,18 @@ const getRandomFloatInRange = (range1, range2, depthAfterDot ) => {
   const randomNumber = (Math.random() * (range2 - range1) + range1);
   return Math.round(randomNumber * tenToDegree) / tenToDegree;
 }
-export {getRandomIntegerInRange, getRandomFloatInRange}
+
+/**
+ * Функция возвращающая число в виде строки с заданным количеством цифр после запятой;
+ * @param {number} numberFloat - десятичное число;
+ * @param {number} lengthDigitsAfterPoint - целое число, количество цифр после запятой;
+ * @return {string} число в виде строки с заданным количеством цифр после запятой;
+ */
+const getFixLengthDigitsAfterPoint = (numberFloat,  lengthDigitsAfterPoint) => {
+  let stringNumberFloat = String(numberFloat.toFixed(lengthDigitsAfterPoint));
+  while (stringNumberFloat.length < lengthDigitsAfterPoint) {
+    stringNumberFloat += '0';
+  }
+  return stringNumberFloat;
+}
+export {getRandomIntegerInRange, getRandomFloatInRange, getFixLengthDigitsAfterPoint}
