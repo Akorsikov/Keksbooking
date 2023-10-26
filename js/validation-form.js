@@ -1,3 +1,7 @@
+import {setMarkerTokyoCenter} from './map.js';
+import {getFixLengthDigitsAfterPoint} from './util.js';
+
+const GEO_PRECISION = 5; // повторяется в 'map.js'
 const MAX_ROOM = 100;
 const MIN_PRICE = new Map([
   ['bungalow',   0],
@@ -143,10 +147,12 @@ adForm.addEventListener('change', (evt) => {
 
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
-  const position = adFormAddress.value;
   adForm.reset();
   setMinPrice(typeHousing.value);
-  adFormAddress.value = position;
+  const coordinates = setMarkerTokyoCenter();
+  adFormAddress.value =
+  `Lat: ${getFixLengthDigitsAfterPoint(coordinates.lat, GEO_PRECISION)},
+   Lng: ${getFixLengthDigitsAfterPoint(coordinates.lng, GEO_PRECISION)}`;
 });
 
 buttonSubmit.addEventListener('click', (evt) => {

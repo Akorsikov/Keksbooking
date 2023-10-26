@@ -1,6 +1,7 @@
-//import {getArrayRandomAds} from './data.js';
+import {getFixLengthDigitsAfterPoint} from './util.js';
 import {getAdCard} from './ad-card.js';
 
+const GEO_PRECISION = 5;// повторяется в 'validation-form.js'
 const TOKYO_CENTER = {
   lat: 35.68950,
   lng: 139.69171,
@@ -10,7 +11,7 @@ const ZOOM = 12;
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
-// const currentAds = getArrayRandomAds();
+
 
 
 adForm.classList.add('ad-form--disabled');
@@ -57,20 +58,32 @@ const marker = L.marker(
 );
 
 marker.addTo(map);
-adFormAddress.value = `Lat: ${marker.getLatLng().lat}, Lng: ${marker.getLatLng().lng}`;
+{
+  const latitude = marker.getLatLng().lat;
+  const longitude = marker.getLatLng().lng;
+  adFormAddress.value =
+   `Lat: ${getFixLengthDigitsAfterPoint(latitude, GEO_PRECISION)},
+    Lng: ${getFixLengthDigitsAfterPoint(longitude, GEO_PRECISION)}`;
+}
+
 
 marker.on('moveend', evt => {
-  const latitude = evt.target.getLatLng().lat.toFixed(5);
-  const longitude = evt.target.getLatLng().lng.toFixed(5);
-  adFormAddress.value = `Lat: ${latitude}, Lng: ${longitude}`;
+  const latitude = evt.target.getLatLng().lat;
+  const longitude = evt.target.getLatLng().lng;
+  adFormAddress.value =
+  `Lat: ${getFixLengthDigitsAfterPoint(latitude, GEO_PRECISION)},
+   Lng: ${getFixLengthDigitsAfterPoint(longitude, GEO_PRECISION)}`;
 });
+
+const setMarkerTokyoCenter = () => {
+  marker.setLatLng(TOKYO_CENTER);
+  return marker.getLatLng();
+}
 
 const getMarkersAds = (arrayAds) => {
   arrayAds.forEach((advertisement) => {
-    console.log(advertisement);
     const lat = advertisement.location.lat;
     const lng = advertisement.location.lng;
-    console.log(' lat: ', lat, ' lng: ', lng);
     const popupBalloon = getAdCard(advertisement);
     const marker = L.marker(
       {
@@ -92,4 +105,4 @@ const getMarkersAds = (arrayAds) => {
   })
 }
 
-export {getMarkersAds};
+export {getMarkersAds, setMarkerTokyoCenter};
