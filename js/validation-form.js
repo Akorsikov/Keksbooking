@@ -3,7 +3,7 @@ import {getFixLengthDigitsAfterPoint} from './util.js';
 import {checkStatus} from './util.js';
 
 const GEO_PRECISION = 5; // повторяется в 'map.js'
-const TIMEOUT = 1000;
+const TIMEOUT = 2000;
 const NUMBER_ATTEMPTS = 2;
 const MAX_ROOM = 100;
 const MIN_PRICE = new Map([
@@ -65,7 +65,7 @@ const setLimitCapacity = (room) => {
 const validationGuestsAndRoom = () => {
   setLimitCapacity(Number(roomNumber.value));
   switch (true) {
-    case (guestCapacity.value === 'null' || +guestCapacity.value === 0): {
+    case (guestCapacity.value === 'null' || (+guestCapacity.value === 0 && +roomNumber.value !== MAX_ROOM)): {
       guestCapacity.setCustomValidity('Выберите количество мест!');
     }
       break;
@@ -126,8 +126,8 @@ const validationImages = () => {
     invalidMessage;
   imagesHousing.setCustomValidity(invalidMessage);
   imagesHousing.reportValidity();
-  imagesHousing.value = '';
   imagesHousing.files = validFiles.files;
+
 }
 
 
@@ -192,12 +192,8 @@ buttonReset.addEventListener('click', (evt) => {
 });
 
 buttonSubmit.addEventListener('click', (evt) => {
-  if (imageAuthor.value === '') {
-    imageAuthor.setCustomValidity('');
-  }
-  if (imagesHousing.value !== '') {
-    imagesHousing.setCustomValidity('');
-  }
+  imageAuthor.setCustomValidity('');
+  imagesHousing.setCustomValidity('');
   if (adForm.checkValidity()) {
     if (roomNumber.value === 'null') {
       roomNumber.setCustomValidity('Выберите количество комнат!');
@@ -206,13 +202,13 @@ buttonSubmit.addEventListener('click', (evt) => {
   }
   if (adForm.checkValidity()) {
     evt.preventDefault();
-    fetch('https://123.javascript.pages.academy/keksobooking', {
+    fetch('https://23.javascript.pages.academy/keksobooking', {
       method: 'POST',
       body: new FormData(adForm),
     })
       .then((checkStatus))
       .then((response) => (response.json()))
-      .then((obj) => (console.log(obj)))
+      .then((obj) => (console.log(obj)))// for cheking send form
       .then(() => getOutputFormMessage(true, successOutputForm))
       .catch((error) => {
         errorMessage += (error + '\n');
