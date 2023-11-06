@@ -1,7 +1,10 @@
 import {setMarkerTokyoCenter} from './map.js';
 import {getFixLengthDigitsAfterPoint} from './util.js';
+import {checkStatus} from './util.js';
 
 const GEO_PRECISION = 5; // повторяется в 'map.js'
+const TIMEOUT = 1000;
+const NUMBER_ATTEMPTS = 2;
 const MAX_ROOM = 100;
 const MIN_PRICE = new Map([
   ['bungalow',   0],
@@ -26,6 +29,13 @@ const departureTime = adForm.querySelector('#timeout');
 const imagesHousing = adForm.querySelector('#images');
 const buttonReset = adForm.querySelector('.ad-form__reset');
 const buttonSubmit = adForm.querySelector('.ad-form__submit');
+
+const templateAdSuccess = document.querySelector('#success').content;
+const templateAadError = document.querySelector('#error').content;
+const successOutputForm = templateAdSuccess.querySelector('.success').cloneNode(true);
+const errorOutputForm = templateAadError.querySelector('.error').cloneNode(true);
+let countAttempts = 0;
+let errorMessage = '';
 
 const setMinPrice = (typeHousing) => {
   const minPrice = MIN_PRICE.get(typeHousing);
@@ -145,6 +155,32 @@ adForm.addEventListener('change', (evt) => {
   }
 });
 
+const removeErrorFormMessage = () => {
+  setTimeout(() => {
+    errorOutputForm.remove();
+    document.removeEventListener('click', removeErrorFormMessage);
+    if (countAttempts < NUMBER_ATTEMPTS) {
+      countAttempts ++;
+      buttonSubmit.click();
+    } else {
+      countAttempts = 0;
+      alert(`${errorMessage}Не получается отправить объявление.`);
+    }
+  }, TIMEOUT / 3);
+}
+
+const getOutputFormMessage = (status, templateOutputFormMessage) => {
+  document.body.append(templateOutputFormMessage);
+  if (status) {
+    setTimeout(() => {
+      templateOutputFormMessage.remove()
+    }, TIMEOUT);
+  } else {
+    const buttonErrorMessage = templateOutputFormMessage.querySelector('.error__button');
+    buttonErrorMessage.addEventListener('click', removeErrorFormMessage);
+  }
+}
+
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   adForm.reset();
@@ -156,17 +192,31 @@ buttonReset.addEventListener('click', (evt) => {
 });
 
 buttonSubmit.addEventListener('click', (evt) => {
-  if (adForm.checkValidity()) {
-    if (roomNumber.value === 'null') {
-      evt.preventDefault();
-      roomNumber.setCustomValidity('Выберите количество комнат!');
-      roomNumber.reportValidity();
-    }
-  }
   if (imageAuthor.value === '') {
     imageAuthor.setCustomValidity('');
   }
   if (imagesHousing.value !== '') {
     imagesHousing.setCustomValidity('');
+  }
+  if (adForm.checkValidity()) {
+    if (roomNumber.value === 'null') {
+      roomNumber.setCustomValidity('Выберите количество комнат!');
+      roomNumber.reportValidity();
+    }
+  }
+  if (adForm.checkValidity()) {
+    evt.preventDefault();
+    fetch('https://123.javascript.pages.academy/keksobooking', {
+      method: 'POST',
+      body: new FormData(adForm),
+    })
+      .then((checkStatus))
+      .then((response) => (response.json()))
+      .then((obj) => (console.log(obj)))
+      .then(() => getOutputFormMessage(true, successOutputForm))
+      .catch((error) => {
+        errorMessage += (error + '\n');
+        getOutputFormMessage(false, errorOutputForm);
+      });
   }
 });
