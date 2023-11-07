@@ -181,14 +181,18 @@ const getOutputFormMessage = (status, templateOutputFormMessage) => {
   }
 }
 
-buttonReset.addEventListener('click', (evt) => {
-  evt.preventDefault();
+const clearAdForm = () => {
   adForm.reset();
   setMinPrice(typeHousing.value);
   const coordinates = setMarkerTokyoCenter();
   adFormAddress.value =
   `Lat: ${getFixLengthDigitsAfterPoint(coordinates.lat, GEO_PRECISION)},
    Lng: ${getFixLengthDigitsAfterPoint(coordinates.lng, GEO_PRECISION)}`;
+}
+
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  clearAdForm();
 });
 
 buttonSubmit.addEventListener('click', (evt) => {
@@ -209,7 +213,10 @@ buttonSubmit.addEventListener('click', (evt) => {
       .then((checkStatus))
       .then((response) => (response.json()))
       .then((obj) => (console.log(obj)))// for cheking send form
-      .then(() => getOutputFormMessage(true, successOutputForm))
+      .then(() => {
+        getOutputFormMessage(true, successOutputForm);
+        clearAdForm();
+      })
       .catch((error) => {
         errorMessage += (error + '\n');
         getOutputFormMessage(false, errorOutputForm);
