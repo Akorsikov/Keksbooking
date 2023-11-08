@@ -62,6 +62,14 @@ const setLimitCapacity = (room) => {
   });
 }
 
+const clearLimitCapacity = () => {
+  guestCapacityList.forEach((item) => {
+    if (item.value !== 'null') {
+      item.removeAttribute('disabled');
+    } 
+  });
+}
+
 const validationGuestsAndRoom = () => {
   setLimitCapacity(Number(roomNumber.value));
   switch (true) {
@@ -184,6 +192,7 @@ const getOutputFormMessage = (status, templateOutputFormMessage) => {
 const clearAdForm = () => {
   adForm.reset();
   setMinPrice(typeHousing.value);
+  clearLimitCapacity();
   const coordinates = setMarkerTokyoCenter();
   adFormAddress.value =
   `Lat: ${getFixLengthDigitsAfterPoint(coordinates.lat, GEO_PRECISION)},
