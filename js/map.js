@@ -62,8 +62,8 @@ marker.addTo(map);
   const latitude = marker.getLatLng().lat;
   const longitude = marker.getLatLng().lng;
   adFormAddress.value =
-   `Lat: ${getFixLengthDigitsAfterPoint(latitude, GEO_PRECISION)},
-    Lng: ${getFixLengthDigitsAfterPoint(longitude, GEO_PRECISION)}`;
+  `Lat: ${getFixLengthDigitsAfterPoint(latitude, GEO_PRECISION)},
+   Lng: ${getFixLengthDigitsAfterPoint(longitude, GEO_PRECISION)}`;
 }
 
 

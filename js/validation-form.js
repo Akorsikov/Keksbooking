@@ -66,7 +66,7 @@ const clearLimitCapacity = () => {
   guestCapacityList.forEach((item) => {
     if (item.value !== 'null') {
       item.removeAttribute('disabled');
-    } 
+    }
   });
 }
 
