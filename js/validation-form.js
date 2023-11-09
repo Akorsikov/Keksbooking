@@ -16,11 +16,12 @@ const MIN_PRICE = new Map([
 
 const adForm = document.querySelector('.ad-form');
 const imageAuthor = document.querySelector('#avatar');
+const avatarAuthor = adForm.querySelector('.ad-form-header__preview img');
 const adTitle = adForm.querySelector('#title');
 const typeHousing = adForm.querySelector('#type');
 const roomNumber = adForm.querySelector('#room-number');
 const adFormAddress = document.querySelector('#address');
-
+// console.log('avatarAuthor:', avatarAuthor);
 const guestCapacity = adForm.querySelector('#capacity');
 const guestCapacityList = guestCapacity.querySelectorAll('option');
 const priceHousing = adForm.querySelector('#price');
@@ -116,6 +117,13 @@ const validationAvatar = (file) => {
     imageAuthor.setCustomValidity('Выбранный файл не является изображением и не будет передан на сервер!');
     imageAuthor.reportValidity();
     file.value = '';
+    avatarAuthor.src = '';
+  } else {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      avatarAuthor.src = reader.result;
+    });
+    reader.readAsDataURL(file.files[0]);
   }
 }
 
@@ -135,7 +143,6 @@ const validationImages = () => {
   imagesHousing.setCustomValidity(invalidMessage);
   imagesHousing.reportValidity();
   imagesHousing.files = validFiles.files;
-
 }
 
 
