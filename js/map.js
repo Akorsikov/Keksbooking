@@ -8,11 +8,19 @@ const TOKYO_CENTER = {
 }
 const ZOOM = 12;
 
+const filterForm = document.querySelector('.map__filters');
+const filterFormSelects = filterForm.querySelectorAll('select');
+const filterFormFieldset = filterForm.querySelector('fieldset');
+
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
 
-
+filterForm.classList.add('map__filters--disabled');
+for (let item of filterFormSelects) {
+  item.setAttribute('disabled','');
+}
+filterFormFieldset.setAttribute('disabled','');
 
 adForm.classList.add('ad-form--disabled');
 for (let item of adFormFieldsets) {
