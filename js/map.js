@@ -16,25 +16,28 @@ const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
 
-filterForm.classList.add('map__filters--disabled');
-for (let item of filterFormSelects) {
-  item.setAttribute('disabled','');
-}
-filterFormFieldset.setAttribute('disabled','');
 
-adForm.classList.add('ad-form--disabled');
-for (let item of adFormFieldsets) {
-  item.setAttribute('disabled','');
+const deactivateForm = (form, classDisabled, fieslds) => {
+  form.classList.add(classDisabled);
+  for (let item of fieslds) {
+    item.setAttribute('disabled','');
+  }
 }
+
+const activateForm = (form, classDisabled, fields) => {
+  form.classList.remove(classDisabled);
+  for (let item of fields) {
+    item.removeAttribute('disabled');
+  }
+}
+
+deactivateForm(filterForm, 'map__filters--disabled',[...filterFormSelects, filterFormFieldset]);
+deactivateForm(adForm, 'ad-form--disabled', adFormFieldsets);
 
 /* global L:readonly */
 const map = L.map('map-canvas')
   .on('load', () => {
-    //console.log('Карта инициализирована');
-    adForm.classList.remove('ad-form--disabled');
-    for (let item of adFormFieldsets) {
-      item.removeAttribute('disabled');
-    }
+    activateForm(adForm, 'ad-form--disabled', adFormFieldsets);
   })
   .setView(TOKYO_CENTER, ZOOM);
 
@@ -113,4 +116,4 @@ const getMarkersAds = (arrayAds) => {
   })
 }
 
-export {getMarkersAds, setMarkerTokyoCenter};
+export {getMarkersAds, setMarkerTokyoCenter, activateForm};
