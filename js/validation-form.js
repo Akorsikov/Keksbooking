@@ -198,6 +198,7 @@ const getOutputFormMessage = (status, templateOutputFormMessage) => {
 
 const clearAdForm = () => {
   adForm.reset();
+  avatarAuthor.src = 'img/muffin-grey.svg';
   setMinPrice(typeHousing.value);
   clearLimitCapacity();
   const coordinates = setMarkerTokyoCenter();
