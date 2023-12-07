@@ -91,29 +91,45 @@ const setMarkerTokyoCenter = () => {
   return marker.getLatLng();
 }
 
-const getMarkersAds = (arrayAds) => {
-  arrayAds.forEach((advertisement) => {
-    const lat = advertisement.location.lat;
-    const lng = advertisement.location.lng;
-    const popupBalloon = getAdCard(advertisement);
-    const marker = L.marker(
+const getMarkerAdvertisement = (advertisement) => {
+  // console.log('advertisement: ', advertisement)
+  const lat = advertisement.location.lat;
+  const lng = advertisement.location.lng;
+  const popupBalloon = getAdCard(advertisement);
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon: currentPin,
+    },
+  );
+  marker
+    .addTo(map)
+    .bindPopup(
+      popupBalloon,
       {
-        lat,
-        lng,
-      },
-      {
-        icon: currentPin,
+        keepInView: true,
       },
     );
-    marker
-      .addTo(map)
-      .bindPopup(
-        popupBalloon,
-        {
-          keepInView: true,
-        },
-      );
-  })
+  return marker;
 }
 
-export {getMarkersAds, setMarkerTokyoCenter, activateForm};
+const getMarkersAds = (arrayAds) => {
+  let markers = [];
+  arrayAds.forEach((advertisement) => {
+    markers.push(getMarkerAdvertisement(advertisement));
+  });
+  return markers;
+}
+
+const closeMarkersAds = (markers) => {
+
+  markers.forEach((marker) => {
+    marker.remove();
+  });
+
+}
+
+export {getMarkersAds, setMarkerTokyoCenter, activateForm, getMarkerAdvertisement, filterForm, closeMarkersAds};
