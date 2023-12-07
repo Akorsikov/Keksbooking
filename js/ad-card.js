@@ -38,7 +38,7 @@ const getAdCard = (adData) => {
     }
   }
   const textGuests = (adData.offer.guests > 1) ? 'гостей' : 'гостя';
-  adCardCapacity.textContent = `${adData.offer.room} ${getTextRooms(adData.offer.room)} для ${adData.offer.guests} ${textGuests}`;
+  adCardCapacity.textContent = `${adData.offer.rooms} ${getTextRooms(adData.offer.rooms)} для ${adData.offer.guests} ${textGuests}`;
 
   //features
   const features = adData.offer.features;
