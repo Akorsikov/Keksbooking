@@ -1,3 +1,10 @@
+const HOUSING_TYPE = new Map ([
+  ['flat', 'Квартира'],
+  ['hotel', 'Отель'],
+  ['house', 'Дом'],
+  ['palace', 'Дворец'],
+  ['bungalow', 'Бунгало'],
+])
 const templateAdCard = document.querySelector('#card').content;
 
 const getAdCard = (adData) => {
@@ -17,7 +24,8 @@ const getAdCard = (adData) => {
   adCardAvatar.setAttribute('src', adData.author.avatar);
   adCardTitle.textContent = adData.offer.title;
   adCardAddress.textContent = adData.offer.address;
-  adCardType.textContent = adData.offer.type;
+  adCardType.textContent = HOUSING_TYPE.get(adData.offer.type);
+  // adCardType.textContent = adData.offer.type;
   adCardTime.textContent = `Заезд после ${adData.offer.checkin}, выезд до ${adData.offer.checkout}`;
   adCardDescription.textContent = adData.offer.description;
 
