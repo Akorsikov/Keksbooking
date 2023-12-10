@@ -4,6 +4,7 @@ import {checkStatus} from './util.js';
 
 const TIMEOUT = 2000;
 const NUMBER_ATTEMPTS = 2;
+const NUMBER_PHOTO = 3;
 const MAX_ROOM = 100;
 const MIN_PRICE = new Map([
   ['bungalow',   0],
@@ -26,6 +27,7 @@ const priceHousing = adForm.querySelector('#price');
 const arrivalTime = adForm.querySelector('#timein');
 const departureTime = adForm.querySelector('#timeout');
 const imagesHousing = adForm.querySelector('#images');
+const adFormPhoto = adForm.querySelector('.ad-form__photo');
 const buttonReset = adForm.querySelector('.ad-form__reset');
 const buttonSubmit = adForm.querySelector('.ad-form__submit');
 
@@ -126,23 +128,52 @@ const validationAvatar = (file) => {
 }
 
 const validationImages = () => {
+  clearAdFormPhoto();
   const validFiles = new DataTransfer();
   let invalidMessage = '';
+  let additionalMessage;
   for (let file of imagesHousing.files) {
     if (file.type.substr(0, 5) !== 'image') {
       invalidMessage += `\n ${file.name}, `;
     } else {
-      validFiles.items.add(file);
+      if (validFiles.files.length < NUMBER_PHOTO) {
+        validFiles.items.add(file);
+      }
+      else {
+        additionalMessage = `\nОграничение на количество файлов, только первые ${NUMBER_PHOTO} фото будут переданы на сервер!`;
+      }
     }
   }
+
   invalidMessage = (invalidMessage) ?
     `Выбранный(-ые) файл(-ы): ${invalidMessage.slice(0, -2)} \n -не являются изображениями и не будут переданы на сервер!` :
     invalidMessage;
+  invalidMessage = (additionalMessage) ? invalidMessage + additionalMessage : invalidMessage;
+
   imagesHousing.setCustomValidity(invalidMessage);
   imagesHousing.reportValidity();
   imagesHousing.files = validFiles.files;
+  for (let i = 0; i < imagesHousing.files.length; i++) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      const photo = document.createElement('img');
+      photo.style.width = '70px';
+      photo.style.height = '70px';
+      adFormPhoto.append(photo);
+      adFormPhoto.style.width = `${(i + 1) * 70}px`;
+      photo.src = reader.result;
+    });
+    reader.readAsDataURL(imagesHousing.files[i]);
+  }
 }
 
+const clearAdFormPhoto = () => {
+  let listPhotos = adFormPhoto.querySelectorAll('img');
+  for (let photo of listPhotos) {
+    photo.remove();
+    adFormPhoto.style.width = '70px';
+  }
+}
 
 adForm.addEventListener('change', (evt) => {
   switch (evt.target.id) {
@@ -164,7 +195,6 @@ adForm.addEventListener('change', (evt) => {
       break;
     case ('images') : validationImages();
       break;
-
   }
 });
 
@@ -203,6 +233,7 @@ const clearAdForm = () => {
   adFormAddress.value =
   `Lat: ${getFixLengthDigitsAfterPoint(coordinates.lat, GEO_PRECISION)},
    Lng: ${getFixLengthDigitsAfterPoint(coordinates.lng, GEO_PRECISION)}`;
+  clearAdFormPhoto();
 }
 
 buttonReset.addEventListener('click', (evt) => {
