@@ -5,7 +5,6 @@ import { handleChangeFilterForm } from './filter.js';
 
 const URL = 'https://23.javascript.pages.academy/keksobooking/data';
 const NUMBER_ADS = 10;
-//const filterForm = document.querySelector('.map__filters');
 const filterFormSelects = filterForm.querySelectorAll('select');
 const filterFormFieldset = filterForm.querySelector('fieldset');
 
@@ -19,7 +18,6 @@ const getAds = (url) => {
       markers = getMarkersAds(arrayAds.slice(0, NUMBER_ADS));
       activateForm(filterForm, 'map__filters--disabled',[...filterFormSelects, filterFormFieldset]);
       handleChangeFilterForm(arrayAds, markers);
-      // console.log(markers);
     })
     .catch((error) => alert(error));
 }

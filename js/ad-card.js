@@ -25,7 +25,6 @@ const getAdCard = (adData) => {
   adCardTitle.textContent = adData.offer.title;
   adCardAddress.textContent = adData.offer.address;
   adCardType.textContent = HOUSING_TYPE.get(adData.offer.type);
-  // adCardType.textContent = adData.offer.type;
   adCardTime.textContent = `Заезд после ${adData.offer.checkin}, выезд до ${adData.offer.checkout}`;
   adCardDescription.textContent = adData.offer.description;
 
@@ -50,7 +49,6 @@ const getAdCard = (adData) => {
 
   //features
   const features = adData.offer.features;
-  //console.log(adCardFeatures);
   if (features) {
     for (let i = 0; i < features.length; i++) {
       adCardFeatures.append(getCardFeature(features[i]));

@@ -70,4 +70,9 @@ const checkStatus = (response) => {
   throw new Error(`${status} — ${statusText}`);
 }
 
-export {  getRandomIntegerInRange,  getRandomFloatInRange,  getFixLengthDigitsAfterPoint,  checkStatus}
+export {
+  getRandomIntegerInRange,
+  getRandomFloatInRange,
+  getFixLengthDigitsAfterPoint,
+  checkStatus
+}
