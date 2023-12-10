@@ -1,7 +1,7 @@
 import {getFixLengthDigitsAfterPoint} from './util.js';
 import {getAdCard} from './ad-card.js';
 
-const GEO_PRECISION = 5;// повторяется в 'validation-form.js'
+const GEO_PRECISION = 5;
 const TOKYO_CENTER = {
   lat: 35.68950,
   lng: 139.69171,
@@ -92,7 +92,6 @@ const setMarkerTokyoCenter = () => {
 }
 
 const getMarkerAdvertisement = (advertisement) => {
-  // console.log('advertisement: ', advertisement)
   const lat = advertisement.location.lat;
   const lng = advertisement.location.lng;
   const popupBalloon = getAdCard(advertisement);
@@ -132,4 +131,12 @@ const closeMarkersAds = (markers) => {
 
 }
 
-export {getMarkersAds, setMarkerTokyoCenter, activateForm, getMarkerAdvertisement, filterForm, closeMarkersAds};
+export {
+  getMarkersAds,
+  setMarkerTokyoCenter,
+  activateForm,
+  getMarkerAdvertisement,
+  closeMarkersAds,
+  filterForm,
+  GEO_PRECISION
+};

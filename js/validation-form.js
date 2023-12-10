@@ -1,8 +1,7 @@
-import {setMarkerTokyoCenter} from './map.js';
+import {setMarkerTokyoCenter, GEO_PRECISION} from './map.js';
 import {getFixLengthDigitsAfterPoint} from './util.js';
 import {checkStatus} from './util.js';
 
-const GEO_PRECISION = 5; // повторяется в 'map.js'
 const TIMEOUT = 2000;
 const NUMBER_ATTEMPTS = 2;
 const MAX_ROOM = 100;
@@ -21,7 +20,6 @@ const adTitle = adForm.querySelector('#title');
 const typeHousing = adForm.querySelector('#type');
 const roomNumber = adForm.querySelector('#room-number');
 const adFormAddress = document.querySelector('#address');
-// console.log('avatarAuthor:', avatarAuthor);
 const guestCapacity = adForm.querySelector('#capacity');
 const guestCapacityList = guestCapacity.querySelectorAll('option');
 const priceHousing = adForm.querySelector('#price');
