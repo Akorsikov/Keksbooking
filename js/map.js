@@ -16,7 +16,6 @@ const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 const adFormAddress = document.querySelector('#address');
 
-
 const deactivateForm = (form, classDisabled, fieslds) => {
   form.classList.add(classDisabled);
   for (let item of fieslds) {
@@ -76,7 +75,6 @@ marker.addTo(map);
   `Lat: ${getFixLengthDigitsAfterPoint(latitude, GEO_PRECISION)},
    Lng: ${getFixLengthDigitsAfterPoint(longitude, GEO_PRECISION)}`;
 }
-
 
 marker.on('moveend', evt => {
   const latitude = evt.target.getLatLng().lat;

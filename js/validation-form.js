@@ -32,9 +32,9 @@ const buttonReset = adForm.querySelector('.ad-form__reset');
 const buttonSubmit = adForm.querySelector('.ad-form__submit');
 
 const templateAdSuccess = document.querySelector('#success').content;
-const templateAadError = document.querySelector('#error').content;
+const templateAdError = document.querySelector('#error').content;
 const successOutputForm = templateAdSuccess.querySelector('.success').cloneNode(true);
-const errorOutputForm = templateAadError.querySelector('.error').cloneNode(true);
+const errorOutputForm = templateAdError.querySelector('.error').cloneNode(true);
 let countAttempts = 0;
 let errorMessage = '';
 
@@ -209,7 +209,7 @@ const removeErrorFormMessage = () => {
       countAttempts = 0;
       alert(`${errorMessage}Не получается отправить объявление.`);
     }
-  }, TIMEOUT / 3);
+  }, TIMEOUT);
 }
 
 const getOutputFormMessage = (status, templateOutputFormMessage) => {
