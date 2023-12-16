@@ -1,6 +1,5 @@
 import {setMarkerTokyoCenter, GEO_PRECISION} from './map.js';
-import {getFixLengthDigitsAfterPoint} from './util.js';
-import {checkStatus} from './util.js';
+import {getFixLengthDigitsAfterPoint, checkStatus} from './util.js';
 
 const TIMEOUT = 2000;
 const NUMBER_ATTEMPTS = 2;
@@ -35,6 +34,7 @@ const templateAdSuccess = document.querySelector('#success').content;
 const templateAdError = document.querySelector('#error').content;
 const successOutputForm = templateAdSuccess.querySelector('.success').cloneNode(true);
 const errorOutputForm = templateAdError.querySelector('.error').cloneNode(true);
+
 let countAttempts = 0;
 let errorMessage = '';
 

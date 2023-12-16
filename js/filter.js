@@ -1,5 +1,4 @@
-import {filterForm} from './map.js';
-import {getMarkerAdvertisement, closeMarkersAds} from './map.js'
+import {getMarkerAdvertisement, closeMarkersAds, filterForm} from './map.js'
 import {NUMBER_ADS} from './data-db.js';
 
 const FILTERING_DELAY = 500; // msec

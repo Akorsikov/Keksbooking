@@ -1,13 +1,11 @@
-import { getMarkersAds } from './map.js';
+import { getMarkersAds, activateForm, filterForm } from './map.js';
 import { checkStatus } from './util.js';
-import { activateForm, filterForm } from './map.js';
 import { handleChangeFilterForm } from './filter.js';
 
 const URL = 'https://23.javascript.pages.academy/keksobooking/data';
 const NUMBER_ADS = 10;
 const filterFormSelects = filterForm.querySelectorAll('select');
 const filterFormFieldset = filterForm.querySelector('fieldset');
-
 
 const getAds = (url) => {
   let markers;
